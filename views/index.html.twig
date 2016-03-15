@@ -20,15 +20,14 @@
                     </button>
                     <a class="navbar-brand" href="">ShoesUs</a>
                 </div>
-                <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                <div class="collapse navbar-collapse" id="navbar-collapse-tar get">
                 </div>
             </div><!-- /.container -->
         </nav>
         {% for product in products %}
         <product>
-            <h2>{{ product.title }}</h2>
-            <p>{{ product.price }}</p>
-            <p>{{ product.desc }}</p>
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.price }} € </p>
         </product>
         {% endfor %}
         <footer class="footer">

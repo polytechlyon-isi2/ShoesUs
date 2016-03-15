@@ -2,26 +2,10 @@
 
 namespace ShoesUs\DAO;
 
-use Doctrine\DBAL\Connection;
 use ShoesUs\Domain\Product;
 
-class ProductDAO
+class ProductDAO extends DAO
 {
-    /**
-     * Database connection
-     *
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $db;
-
-    /**
-     * Constructor
-     *
-     * @param \Doctrine\DBAL\Connection The database connection object
-     */
-    public function __construct(Connection $db) {
-        $this->db = $db;
-    }
 
     /**
      * Return a list of all products, sorted by date (most recent first).
@@ -30,7 +14,7 @@ class ProductDAO
      */
     public function findAll() {
         $sql = "select * from s_product order by prod_id desc";
-        $result = $this->db->fetchAll($sql);
+        $result = $this->getDb()->fetchAll($sql);
         
         // Convert query result to an array of domain objects
         $Products = array();
@@ -47,12 +31,13 @@ class ProductDAO
      * @param array $row The DB row containing product data.
      * @return \ShoesUs\Domain\product
      */
-    private function buildProduct(array $row) {
+    private function buildDomainObject(array $row) {
         $product = new Product();
         $product->setId($row['prod_id']);
-        $product->setTitle($row['prod_title']);
+        $product->setName($row['prod_name']);
         $product->setDesc($row['prod_desc']);
         $product->setPrice($row['prod_price']);
+        $product->setCategory($row['prod_cat']);
         return $product;
     }
 }

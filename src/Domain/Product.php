@@ -16,7 +16,7 @@ class Product
      *
      * @var string
      */
-    private $title;
+    private $name;
 
     /**
      * Product description.
@@ -28,9 +28,16 @@ class Product
     /**
      * Product price.
      *
-     * @var string
+     * @var integer
      */
     private $price;
+    
+    /**
+     * Product category.
+     *
+     * @var \MicroCMS\Domain\Category
+     */
+    private $category;
 
     public function getId() {
         return $this->id;
@@ -40,12 +47,12 @@ class Product
         $this->id = $id;
     }
 
-    public function getTitle() {
-        return $this->title;
+    public function getName() {
+        return $this->name;
     }
 
-    public function setTitle($title) {
-        $this->title = $title;
+    public function setName($name) {
+        $this->name = $name;
     }
 
     public function getDesc() {
@@ -62,5 +69,13 @@ class Product
 
     public function setPrice($price) {
         $this->price = $price;
+    }
+
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($category) {
+        $this->category = $category;
     }
 }
