@@ -3,9 +3,9 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% for article in articles %}
+{% for product in products %}
 <article>
-    <h2><a class="productTitle" href="{{ path('product', { 'id': product.id }) }}">{{ product.title }}</a></h2>
+    <h2><a class="productName" href="{{ path('product', { 'id': product.id }) }}">{{ product.name }}</a></h2>
     <p>{{ product.price }}</p>
 </article>
 {% endfor %}

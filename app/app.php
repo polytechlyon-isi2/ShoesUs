@@ -7,13 +7,20 @@ use Symfony\Component\Debug\ExceptionHandler;
 ErrorHandler::register();
 ExceptionHandler::register();
 
-// Register service providers.
+// Register service providers
 $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
-// Register services.
+// Register services
 $app['dao.product'] = $app->share(function ($app) {
-    return new ShoesUs\DAO\ProductDAO($app['db']);
+    $productDAO = new ShoesUs\DAO\ProductDAO($app['db']);
+    $productDAO->setCategoryDAO($app['dao.category']);
+    return $productDAO;
+
+});
+$app['dao.category'] = $app->share(function ($app) {
+    return new ShoesUs\DAO\CategoryDAO($app['db']);
 });

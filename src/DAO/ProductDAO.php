@@ -14,6 +14,23 @@ class ProductDAO extends DAO
     public function setcategoryDAO(CategoryDAO $categoryDAO) {
         $this->categoryDAO = $categoryDAO;
     }
+    
+        /**
+     * Returns an article matching the supplied id.
+     *
+     * @param integer $id
+     *
+     * @return \MicroCMS\Domain\Article|throws an exception if no matching article is found
+     */
+    public function find($id) {
+        $sql = "select * from s_product where prod_id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No category matching id " . $id);
+    }
 
         /**
      * Return a list of all products for a category, sorted by date (most recent last).

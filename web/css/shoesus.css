@@ -8,6 +8,6 @@ body {
     text-align: center;
 }
 
-.productTitle:hover, .productTitle:focus {
+.productName:hover, .productName:focus {
     text-decoration: none;
 }
