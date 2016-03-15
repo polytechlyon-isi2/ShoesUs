@@ -103,6 +103,23 @@ ALTER TABLE `s_product`
 --
 ALTER TABLE `s_product`
   ADD CONSTRAINT `fk_category` FOREIGN KEY (`prod_cat`) REFERENCES `s_category` (`cat_id`);
+  
+  
+  create table s_user (
+    user_id integer not null primary key auto_increment,
+    user_name varchar(50) not null,
+    user_password varchar(88) not null,
+    user_salt varchar(23) not null,
+    user_role varchar(50) not null 
+) engine=innodb character set utf8 collate utf8_unicode_ci;
+
+
+/* raw password is 'john' */
+insert into t_user values
+(1, 'JohnDoe', 'L2nNR5hIcinaJkKR+j4baYaZjcHS0c3WX2gjYF6Tmgl1Bs+C9Qbr+69X8eQwXDvw0vp73PrcSeT0bGEW5+T2hA==', 'YcM=A$nsYzkyeDVjEUa7W9K', 'ROLE_USER');
+/* raw password is 'jane' */
+insert into t_user values
+(2, 'JaneDoe', 'EfakNLxyhHy2hVJlxDmVNl1pmgjUZl99gtQ+V3mxSeD8IjeZJ8abnFIpw9QNahwAlEaXBiQUBLXKWRzOmSr8HQ==', 'dhMTBkzwDKxnD;4KNs,4ENy', 'ROLE_USER');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
