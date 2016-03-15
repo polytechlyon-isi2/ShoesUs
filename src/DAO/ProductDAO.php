@@ -20,7 +20,7 @@ class ProductDAO extends DAO
         $Products = array();
         foreach ($result as $row) {
             $productId = $row['prod_id'];
-            $products[$productId] = $this->buildProduct($row);
+            $products[$productId] = $this->buildDomainObject($row);
         }
         return $products;
     }
@@ -31,7 +31,7 @@ class ProductDAO extends DAO
      * @param array $row The DB row containing product data.
      * @return \ShoesUs\Domain\product
      */
-    private function buildDomainObject(array $row) {
+    protected function buildDomainObject($row) {
         $product = new Product();
         $product->setId($row['prod_id']);
         $product->setName($row['prod_name']);

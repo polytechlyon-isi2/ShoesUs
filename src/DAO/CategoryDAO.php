@@ -20,7 +20,7 @@ class CategoryDAO extends DAO
         $category = array();
         foreach ($result as $row) {
             $categoryID = $row['cat_id'];
-            $category[$categoryID] = $this->buildCategory($row);
+            $category[$categoryID] = $this->buildDomainObject($row);
         }
         return $category;
     }
@@ -31,7 +31,7 @@ class CategoryDAO extends DAO
      * @param array $row The DB row containing category data.
      * @return \ShoesUs\Domain\Category
      */
-    private function buildDomainObject(array $row) {
+    protected function buildDomainObject($row) {
         $category = new Product();
         $category->setId($row['cat_id']);
         $category->setName($row['cat_name']);
