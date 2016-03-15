@@ -28,7 +28,7 @@ class CategoryDAO extends DAO
      * @return array A list of all catgories.
      */
     public function findAll() {
-        $sql = "select * from s_category order by cat_id desc";
+        $sql = "select * from s_category order by cat_id";
         $result = $this->getDb()->fetchAll($sql);
         
         // Convert query result to an array of domain objects
@@ -47,7 +47,7 @@ class CategoryDAO extends DAO
      * @return \ShoesUs\Domain\Category
      */
     protected function buildDomainObject($row) {
-        $category = new Product();
+        $category = new Category();
         $category->setId($row['cat_id']);
         $category->setName($row['cat_name']);
         return $category;

@@ -45,7 +45,7 @@ class ProductDAO extends DAO
 
         // cat_id is not selected by the SQL query
         // The catgeory won't be retrieved during domain objet construction
-        $sql = "select prod_id, prod_name, prod_desc, prod_price from s_product where prod_cat=? order by prod_id";
+        $sql = "select prod_id, prod_name, prod_desc, prod_price, prod_cat from s_product where prod_cat=? order by prod_id";
         $result = $this->getDb()->fetchAll($sql, array($categoryID));
 
         // Convert query result to an array of domain objects
@@ -90,7 +90,9 @@ class ProductDAO extends DAO
         $product->setName($row['prod_name']);
         $product->setDesc($row['prod_desc']);
         $product->setPrice($row['prod_price']);
-        $product->setCategory($row['prod_cat']);
+        $categoryID = $row['prod_cat'];
+        $category = $this->categoryDAO->find($categoryID);
+        $product->setCategory($category);
         return $product;
     }
 }
