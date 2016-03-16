@@ -7,7 +7,7 @@ use ShoesUs\Domain\Product;
 class ProductDAO extends DAO
 {   
     /**
-     * @var \MicroCMS\DAO\CategoryDAO
+     * @var \ShoesUs\DAO\CategoryDAO
      */
     private $categoryDAO;
     
@@ -20,7 +20,7 @@ class ProductDAO extends DAO
      *
      * @param integer $id
      *
-     * @return \MicroCMS\Domain\Article|throws an exception if no matching article is found
+     * @return \ShoesUs\Domain\Article|throws an exception if no matching article is found
      */
     public function find($id) {
         $sql = "select * from s_product where prod_id=?";
@@ -94,5 +94,40 @@ class ProductDAO extends DAO
         $category = $this->categoryDAO->find($categoryID);
         $product->setCategory($category);
         return $product;
+    }
+    
+        /**
+     * Saves an product into the database.
+     *
+     * @param \ShoesUs\Domain\Product $product The product to save
+     */
+    public function save(Product $product) {
+        $productData = array(
+            'prod_name' => $product->getName(),
+            'prod_desc' => $product->getDesc(),
+            'prod_price' => $product->getPrice(),
+            'prod_cat' => 1,
+            );
+
+        if ($product->getId()) {
+            // The product has already been saved : update it
+            $this->getDb()->update('s_product', $productData, array('prod_id' => $product->getId()));
+        } else {
+            // The article has never been saved : insert it
+            $this->getDb()->insert('s_product', $productData);
+            // Get the id of the newly created article and set it on the entity.
+            $id = $this->getDb()->lastInsertId();
+            $product->setId($id);
+        }
+    }
+
+    /**
+     * Removes an product from the database.
+     *
+     * @param integer $id The product id.
+     */
+    public function delete($id) {
+        // Delete the article
+        $this->getDb()->delete('s_product', array('prod_id' => $id));
     }
 }

@@ -11,7 +11,7 @@ class CategoryDAO extends DAO
      *
      * @param integer $id
      *
-     * @return \MicroCMS\Domain\Article|throws an exception if no matching article is found
+     * @return \ShoesUs\Domain\Article|throws an exception if no matching article is found
      */
     public function find($id) {
         $sql = "select * from s_category where cat_id=?";

@@ -35,7 +35,7 @@ class Product
     /**
      * Product category.
      *
-     * @var \MicroCMS\Domain\Category
+     * @var \ShoesUs\Domain\Category
      */
     private $category;
 

@@ -11,3 +11,17 @@ body {
 .productName:hover, .productName:focus {
     text-decoration: none;
 }
+
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.navbar-brand{
+    font-weight: bold;
+}
+
+.dropdown{
+    background-color: white;
+    border-radius: 3px;
+}

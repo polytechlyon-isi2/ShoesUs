@@ -7,6 +7,11 @@
     <h2>{{ product.name }}</h2>
     <p>{{ product.desc }}</p>
     <p>{{ product.price }}</p>
-
+    <h3>Ajouter au panier</h3>
+    {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+        Soon!
+    {% else %}
+        <a href="{{ path('login') }} ">Se connecter</a> pour ajouter au panier.
+    {% endif %}
 </p>
 {% endblock %}

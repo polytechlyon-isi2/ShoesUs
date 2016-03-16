@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use MicroCMS\Domain\User;
+use ShoesUs\Domain\User;
 
 class UserDAO extends DAO implements UserProviderInterface
 {
@@ -59,6 +59,24 @@ class UserDAO extends DAO implements UserProviderInterface
     public function supportsClass($class)
     {
         return 'ShoesUs\Domain\User' === $class;
+    }
+    
+    /**
+     * Returns a list of all users, sorted by role and name.
+     *
+     * @return array A list of all users.
+     */
+    public function findAll() {
+        $sql = "select * from s_user order by user_role, user_name";
+        $result = $this->getDb()->fetchAll($sql);
+
+        // Convert query result to an array of domain objects
+        $entities = array();
+        foreach ($result as $row) {
+            $id = $row['user_id'];
+            $entities[$id] = $this->buildDomainObject($row);
+        }
+        return $entities;
     }
 
     /**
