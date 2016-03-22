@@ -46,6 +46,16 @@ $app->get('/admin', function() use ($app) {
 })->bind('admin');
 
 
+//Bag page
+
+
+
+$app->get('/bag', function ($id) use ($app) {
+    $bags = $app['dao.bag']->find($id);
+    return $app['twig']->render('bag.html.twig', array('bags' => $bags);
+})->bind('bag');
+
+
 
 // Add a new product
 $app->match('/admin/product/add', function(Request $request) use ($app) {
