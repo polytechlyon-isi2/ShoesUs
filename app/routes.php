@@ -50,7 +50,7 @@ $app->get('/admin', function() use ($app) {
 
 
 
-$app->get('/bag', function ($id) use ($app) {
+$app->get('/bag/{id}', function ($id) use ($app) {
     $bags = $app['dao.bag']->find($id);
     return $app['twig']->render('bag.html.twig', array('bags' => $bags));
 })->bind('bag');
