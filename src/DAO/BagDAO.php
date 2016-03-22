@@ -21,6 +21,11 @@ class BagDAO extends DAO
         else
             throw new \Exception("No user matching id " . $id);
     }
+    
+    public function findProduct($id){
+        $row = this->find($id);
+    
+    
 
 
 
@@ -33,7 +38,9 @@ class BagDAO extends DAO
     protected function buildDomainObject($row) {
         $bag = new Bag();
         $bag->setUser($row['user_id']);
-        $bag->setProd($row['prod_id']);
+        $prodID = $row['prod_id'];
+        $product = $this->productDAO->find($prodID);
+        $product->setProd($product);
         return $bag;
     }
     

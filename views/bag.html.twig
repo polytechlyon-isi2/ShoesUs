@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block content %}
+{% for bag in bags %}
+    <h2><a class="productName" href="{{ path('product', { 'id': product.id }) }}">{{ bags.prod.name }}</a></h2>
+    <p>{{ bags.prod.price }}€</p>
+{% endfor %}
+{% endblock %}

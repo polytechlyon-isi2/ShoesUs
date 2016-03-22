@@ -34,8 +34,7 @@ class Product
         return $this->prod;
     }
 
-    public function setProd($prod) {
+ public function setProd(Product $prod) {
         $this->prod = $prod;
     }
-
 }
