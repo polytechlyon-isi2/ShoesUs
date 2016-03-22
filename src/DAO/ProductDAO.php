@@ -96,6 +96,7 @@ class ProductDAO extends DAO
         return $product;
     }
     
+    
         /**
      * Saves an product into the database.
      *

@@ -7,11 +7,11 @@ use ShoesUs\Domain\Category;
 class CategoryDAO extends DAO
 {
     /**
-     * Returns an article matching the supplied id.
+     * Returns an catgeory matching the supplied id.
      *
      * @param integer $id
      *
-     * @return \ShoesUs\Domain\Article|throws an exception if no matching article is found
+     * @return \ShoesUs\Domain\Category|throws an exception if no matching article is found
      */
     public function find($id) {
         $sql = "select * from s_category where cat_id=?";
@@ -40,6 +40,7 @@ class CategoryDAO extends DAO
         return $category;
     }
 
+    
     /**
      * Creates an category object based on a DB row.
      *
