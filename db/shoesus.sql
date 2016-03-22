@@ -114,6 +114,39 @@ ALTER TABLE `s_product`
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 
+--
+-- Structure de la table `s_bag`
+--
+
+CREATE TABLE `s_bag` (
+  `user_id` int NOT NULL,
+  `prod_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+ALTER TABLE `s_bag`
+  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`prod_id`) REFERENCES `s_product` (`prod_id`);
+  
+ALTER TABLE `s_bag`
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `s_user` (`user_id`);
+  
+
+-- Contenu de la table `s_category`
+--
+
+INSERT INTO `s_category` (`cat_id`, `cat_name`) VALUES
+(1, 'Baskets'),
+(2, 'Chaussures de ville'),
+(3, 'Mocassins'),
+(4, 'Espadrilles');
+
+
+
+-- --------------------------------------------------------
+
+
+
+
 /* raw password is 'john' */
 insert into s_user values
 (1, 'JohnDoe', 'L2nNR5hIcinaJkKR+j4baYaZjcHS0c3WX2gjYF6Tmgl1Bs+C9Qbr+69X8eQwXDvw0vp73PrcSeT0bGEW5+T2hA==', 'YcM=A$nsYzkyeDVjEUa7W9K', 'ROLE_USER');
