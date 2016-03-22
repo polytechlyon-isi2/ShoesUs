@@ -40,6 +40,39 @@ class CategoryDAO extends DAO
         return $category;
     }
 
+        
+        /**
+     * Saves an category into the database.
+     *
+     * @param \ShoesUs\Domain\Category $product The category to save
+     */
+    public function save(Category $category) {
+        $categoryData = array(
+            'cat_name' => $category->getName(),
+        );
+
+        if ($category->getId()) {
+            // The category has already been saved : update it
+            $this->getDb()->update('s_category', $categoryData, array('cat_id' => $category->getId()));
+        } else {
+            // The category has never been saved : insert it
+            $this->getDb()->insert('s_category', $categoryData);
+            // Get the id of the newly created category and set it on the entity.
+            $id = $this->getDb()->lastInsertId();
+            $category->setId($id);
+        }
+    }
+    
+    
+    /**
+     * Removes an category from the database.
+     *
+     * @param integer $id The category id.
+     */
+    public function delete($id) {
+        // Delete the article
+        $this->getDb()->delete('s_category', array('cat_id' => $id));
+    }
     
     /**
      * Creates an category object based on a DB row.
