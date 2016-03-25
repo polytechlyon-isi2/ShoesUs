@@ -6,24 +6,24 @@ use ShoesUs\Domain\Bag;
 
 class BagDAO extends DAO
 {
-
-    /**
+    
+        /**
      * Return a list of all products, sorted by id.
-     * 
-     * @return array A list of all catgories.
+     *
+     * @return array A list of all products.
      */
     public function find($id) {
-        $sql = "select * from s_bag where user_id=?";
-        $row = $this->getDb()->fetchAssoc($sql, array($id));
-
-        if ($row)
-            return $this->buildDomainObject($row);
-        else
-            throw new \Exception("No user matching id " . $id);
+        $sql = "select * from s_bag where bag_user=?";
+        $result = $this->getDb()->fetchAll($sql, array($id));
+        
+        // Convert query result to an array of domain objects
+        $bag = array();
+        foreach ($bag as $row) {
+            $bagID = $row['bag_id'];
+            $bag[$bagID] = $this->buildDomainObject($row);
+        }
+        return $bag;
     }
-    
-    public function findProduct($id){
-        $row = this->find($id);
     
     
 
@@ -37,8 +37,9 @@ class BagDAO extends DAO
      */
     protected function buildDomainObject($row) {
         $bag = new Bag();
-        $bag->setUser($row['user_id']);
-        $prodID = $row['prod_id'];
+        $bag->setId($row['bag_id']);
+        $bag->setUser($row['bag_user']);
+        $prodID = $row['bag_prod'];
         $product = $this->productDAO->find($prodID);
         $product->setProd($product);
         return $bag;

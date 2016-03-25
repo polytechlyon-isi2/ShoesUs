@@ -2,28 +2,44 @@
 
 namespace ShoesUs\Domain;
 
-class Product 
+class Bag 
 {
+    /**
+     * id.
+     *
+     * @var integer
+     */
+    private $id;
+    
     /**
      * User.
      *
-     * @var integer
+     * @var User
      */
     private $user;
 
     /**
      * Product.
      *
-     * @var integer
+     * @var Product
      */
     private $prod;
     
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
 
     public function getUser() {
         return $this->user;
     }
 
-    public function setUser($user) {
+    public function setUser(User $user) {
         $this->user = $user;
     }
 

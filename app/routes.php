@@ -3,6 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use ShoesUs\Domain\Category;
 use ShoesUs\Domain\Product;
 use ShoesUs\Domain\User;
+use ShoesUs\Domain\Bag;
 use ShoesUs\Form\Type\CategoryType;
 use ShoesUs\Form\Type\ProductType;
 use ShoesUs\Form\Type\UserType;
@@ -12,7 +13,7 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array('categories' => $categories));
 })->bind('home');
 
-// Article details with comments
+// product details
 $app->get('/product/{id}', function ($id) use ($app) {
     $product = $app['dao.product']->find($id);
     return $app['twig']->render('product.html.twig', array('product' => $product));
@@ -137,12 +138,21 @@ $app->get('/admin/category/{id}/delete', function($id, Request $request) use ($a
 
 
 
-// Add a new user
+// Add a user
 $app->match('/admin/user/add', function(Request $request) use ($app) {
     $user = new User();
     $userForm = $app['form.factory']->create(new UserType(), $user);
     $userForm->handleRequest($request);
     if ($userForm->isSubmitted() && $userForm->isValid()) {
+        // generate a random salt value
+        $salt = substr(md5(time()), 0, 23);
+        $user->setSalt($salt);
+        $plainPassword = $user->getPassword();
+        // find the default encoder
+        $encoder = $app['security.encoder.digest'];
+        // compute the encoded password
+        $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $user->setPassword($password); 
         $app['dao.user']->save($user);
         $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
     }
@@ -157,6 +167,12 @@ $app->match('/admin/user/{id}/edit', function($id, Request $request) use ($app) 
     $userForm = $app['form.factory']->create(new UserType(), $user);
     $userForm->handleRequest($request);
     if ($userForm->isSubmitted() && $userForm->isValid()) {
+        $plainPassword = $user->getPassword();
+        // find the encoder for the user
+        $encoder = $app['security.encoder_factory']->getEncoder($user);
+        // compute the encoded password
+        $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $user->setPassword($password); 
         $app['dao.user']->save($user);
         $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
     }
@@ -165,7 +181,7 @@ $app->match('/admin/user/{id}/edit', function($id, Request $request) use ($app) 
         'userForm' => $userForm->createView()));
 })->bind('admin_user_edit');
 
-// Remove an user
+// Remove a user
 $app->get('/admin/user/{id}/delete', function($id, Request $request) use ($app) {
     // Delete the user
     $app['dao.user']->delete($id);

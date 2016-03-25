@@ -80,17 +80,18 @@ class UserDAO extends DAO implements UserProviderInterface
     }
     
     
-
-        
-        /**
-     * Saves an user into the database.
+    /**
+     * Saves a user into the database.
      *
-     * @param \ShoesUs\Domain\User $product The user to save
+     * @param \ShoesUs\Domain\User $user The user to save
      */
     public function save(User $user) {
         $userData = array(
             'user_name' => $user->getUsername(),
-        );
+            'user_salt' => $user->getSalt(),
+            'user_password' => $user->getPassword(),
+            'user_role' => $user->getRole()
+            );
 
         if ($user->getId()) {
             // The user has already been saved : update it
@@ -103,17 +104,27 @@ class UserDAO extends DAO implements UserProviderInterface
             $user->setId($id);
         }
     }
-    
-    
+
     /**
-     * Removes an user from the database.
+     * Removes a user from the database.
      *
-     * @param integer $id The user id.
+     * @param @param integer $id The user id.
      */
     public function delete($id) {
         // Delete the user
         $this->getDb()->delete('s_user', array('user_id' => $id));
     }
+    
+    public function findBag($id){
+        $sql = "select * from s_bag where bag_user=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+        
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No product matching id " . $id);
+    }
+    
 
     /**
      * Creates a User object based on a DB row.

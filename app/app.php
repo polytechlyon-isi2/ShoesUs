@@ -53,3 +53,6 @@ $app['dao.user'] = $app->share(function ($app) {
 $app['dao.category'] = $app->share(function ($app) {
     return new ShoesUs\DAO\CategoryDAO($app['db']);
 });
+$app['dao.bag'] = $app->share(function ($app) {
+    return new ShoesUs\DAO\BagDAO($app['db']);
+});
