@@ -53,9 +53,7 @@ $app->get('/admin', function() use ($app) {
 
 $app->get('/bag', function () use ($app) {
     $bags = $app['dao.bag']->findAll($app['user']->getId());
-    $test = $app['user']->getId();
-    return $app['twig']->render('bag.html.twig', array('bags' => $bags,
-                                                      'test' => $test));
+    return $app['twig']->render('bag.html.twig', array('bags' => $bags));
 })->bind('bag');
 
 

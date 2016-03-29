@@ -18,11 +18,11 @@ class BagDAO extends DAO
     private $userDAO;
     
     
-    public function setproductDAO(ProductDAO $productDAO) {
+    public function setProductDAO(ProductDAO $productDAO) {
         $this->productDAO = $productDAO;
     }
     
-    public function setuserDAO(UserDAO $userDAO) {
+    public function setUserDAO(UserDAO $userDAO) {
         $this->userDAO = $userDAO;
     }
     
@@ -57,7 +57,8 @@ class BagDAO extends DAO
     protected function buildDomainObject($row) {
         $bag = new Bag();
         $bag->setId($row['bag_id']);
-        $user = $this->userDAO->find($row['bag_user']);
+        $userId = $row['bag_user'];
+        $user = $this->userDAO->find($userId);
         $bag->setUser($user);
         $product = $this->productDAO->find($row['bag_prod']);
         $bag->setProd($product);

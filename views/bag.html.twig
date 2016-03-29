@@ -6,6 +6,6 @@
 
 {% block content %}
 {% for bag in bags %}
-    <h2><a class="productName" href="{{ path('product', { 'id': product.id }) }}">{{ bag.prod.name }}</a></h2>
+    <h2><a class="productName" href="{{ path('product', { 'id': bag.prod.id }) }}">{{ bag.prod.name }}</a></h2>
 {% endfor %}
 {% endblock %}

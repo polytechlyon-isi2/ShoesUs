@@ -11,7 +11,7 @@ class ProductDAO extends DAO
      */
     private $categoryDAO;
     
-    public function setcategoryDAO(CategoryDAO $categoryDAO) {
+    public function setCategoryDAO(CategoryDAO $categoryDAO) {
         $this->categoryDAO = $categoryDAO;
     }
     
@@ -29,7 +29,7 @@ class ProductDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("No category matching id " . $id);
+            throw new \Exception("No product matching id " . $id);
     }
 
         /**
