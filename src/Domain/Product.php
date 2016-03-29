@@ -87,4 +87,14 @@ class Product
     public function setCategory(Category $category) {
         $this->category = $category;
     }
+    
+     public function getImage() {
+        return $this->image;
+    }
+
+    public function setImage($image) {
+        $this->image = $image;
+    }
+    
+
 }

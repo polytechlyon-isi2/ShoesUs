@@ -90,6 +90,7 @@ class ProductDAO extends DAO
         $product->setName($row['prod_name']);
         $product->setDesc($row['prod_desc']);
         $product->setPrice($row['prod_price']);
+        $product->setImage($row['prod_image']);
         $categoryID = $row['prod_cat'];
         $category = $this->categoryDAO->find($categoryID);
         $product->setCategory($category);
@@ -107,7 +108,8 @@ class ProductDAO extends DAO
             'prod_name' => $product->getName(),
             'prod_desc' => $product->getDesc(),
             'prod_price' => $product->getPrice(),
-            'prod_cat' => 1,
+            'prod_image' => $product->getImage()
+            
             );
 
         if ($product->getId()) {

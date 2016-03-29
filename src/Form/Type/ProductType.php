@@ -12,7 +12,10 @@ class ProductType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('desc', 'textarea')
-            ->add('price', 'number');
+            ->add('price', 'number')
+            ->add('image', 'text');
+        
+            
     }
 
     public function getName()
