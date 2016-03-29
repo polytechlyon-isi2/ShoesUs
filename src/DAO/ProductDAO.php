@@ -16,11 +16,11 @@ class ProductDAO extends DAO
     }
     
         /**
-     * Returns an article matching the supplied id.
+     * Returns an product matching the supplied id.
      *
      * @param integer $id
      *
-     * @return \ShoesUs\Domain\Article|throws an exception if no matching article is found
+     * @return \ShoesUs\Domain\Product|throws an exception if no matching product is found
      */
     public function find($id) {
         $sql = "select * from s_product where prod_id=?";
