@@ -38,6 +38,15 @@ class Product
      * @var \ShoesUs\Domain\Category
      */
     private $category;
+    
+    /**
+     * Product image.
+     *
+     * @var \ShoesUs\Domain\Category
+     */
+    private $image;
+    
+    
 
     public function getId() {
         return $this->id;

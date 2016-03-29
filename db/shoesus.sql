@@ -52,8 +52,16 @@ CREATE TABLE `s_product` (
   `prod_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `prod_desc` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
   `prod_price` int(11) NOT NULL,
-  `prod_cat` int(11) NOT NULL
+  `prod_cat` int(11) NOT NULL,
+  `prod_image` text COLLATE utf8_unicode_ci NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ajout de image
+ALTER TABLE s_product
+ADD `prod_image` text COLLATE utf8_unicode_ci NOT NULL,
+
+
+
 
 --
 -- Contenu de la table `s_product`
