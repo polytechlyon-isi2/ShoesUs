@@ -4,8 +4,27 @@ namespace ShoesUs\DAO;
 
 use ShoesUs\Domain\Bag;
 
+
 class BagDAO extends DAO
 {
+    /**
+     * @var \ShoesUs\DAO\ProductDAO
+     */
+    private $productDAO;
+    
+    /**
+     * @var \ShoesUs\DAO\UserDAO
+     */
+    private $userDAO;
+    
+    
+    public function setproductDAO(ProductDAO $productDAO) {
+        $this->productDAO = $productDAO;
+    }
+    
+    public function setuserDAO(UserDAO $userDAO) {
+        $this->userDAO = $userDAO;
+    }
     
         /**
      * Return a list of all products, sorted by id.
@@ -30,26 +49,24 @@ class BagDAO extends DAO
 
 
     /**
-     * Creates an category object based on a DB row.
      *
-     * @param array $row The DB row containing category data.
-     * @return \ShoesUs\Domain\Category
+     *
+     * @param array $row The DB row containing bag data.
+     * @return \ShoesUs\Domain\Bag
      */
     protected function buildDomainObject($row) {
         $bag = new Bag();
         $bag->setId($row['bag_id']);
-        $userID = $row['bag_user'];
-        $user = $this->userDAO->find($userID);
-        $bag->setProd($user);
-        $prodID = $row['bag_prod'];
-        $product = $this->productDAO->find($prodID);
+        $user = $this->userDAO->find($row['bag_user']);
+        $bag->setUser($user);
+        $product = $this->productDAO->find($row['bag_prod']);
         $bag->setProd($product);
         $bag->setProdNumber($row['bag_prod_nbr']);
         return $bag;
     }
     
     public function delete($user,$prod) {
-        // Delete the article
+        // Delete the product
         $this->getDb()->delete('s_bag', array('user_id' => $user,'prod_id' => $prod));
     }
 }

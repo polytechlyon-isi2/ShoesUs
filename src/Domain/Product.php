@@ -42,7 +42,7 @@ class Product
     /**
      * Product image.
      *
-     * @var \ShoesUs\Domain\Category
+     * @var string
      */
     private $image;
     
