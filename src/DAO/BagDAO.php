@@ -12,13 +12,13 @@ class BagDAO extends DAO
      *
      * @return array A list of all products.
      */
-    public function find($id) {
+    public function findAll($user) {
         $sql = "select * from s_bag where bag_user=?";
-        $result = $this->getDb()->fetchAll($sql, array($id));
+        $result = $this->getDb()->fetchAll($sql, array($user));
         
         // Convert query result to an array of domain objects
         $bag = array();
-        foreach ($bag as $row) {
+        foreach ($result as $row) {
             $bagID = $row['bag_id'];
             $bag[$bagID] = $this->buildDomainObject($row);
         }
@@ -38,10 +38,13 @@ class BagDAO extends DAO
     protected function buildDomainObject($row) {
         $bag = new Bag();
         $bag->setId($row['bag_id']);
-        $bag->setUser($row['bag_user']);
+        $userID = $row['bag_user'];
+        $user = $this->userDAO->find($userID);
+        $bag->setProd($user);
         $prodID = $row['bag_prod'];
         $product = $this->productDAO->find($prodID);
-        $product->setProd($product);
+        $bag->setProd($product);
+        $bag->setProdNumber($row['bag_prod_nbr']);
         return $bag;
     }
     

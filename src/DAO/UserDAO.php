@@ -115,16 +115,7 @@ class UserDAO extends DAO implements UserProviderInterface
         $this->getDb()->delete('s_user', array('user_id' => $id));
     }
     
-    public function findBag($id){
-        $sql = "select * from s_bag where bag_user=?";
-        $row = $this->getDb()->fetchAssoc($sql, array($id));
-        
-        if ($row)
-            return $this->buildDomainObject($row);
-        else
-            throw new \Exception("No product matching id " . $id);
-    }
-    
+
 
     /**
      * Creates a User object based on a DB row.

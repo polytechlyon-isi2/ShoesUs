@@ -25,6 +25,12 @@ class Bag
      */
     private $prod;
     
+    /**
+     * nomber of each product.
+     *
+     * @var integer
+     */
+    private $prodnumber;
 
     public function getId() {
         return $this->id;
@@ -50,7 +56,16 @@ class Bag
         return $this->prod;
     }
 
- public function setProd(Product $prod) {
+    public function setProd(Product $prod) {
         $this->prod = $prod;
+    }
+    
+    
+    public function getProdNumber() {
+        return $this->prodnumber;
+    }
+
+ public function setProdNumber($prodnumber) {
+        $this->prodnumber = $prodnumber;
     }
 }
