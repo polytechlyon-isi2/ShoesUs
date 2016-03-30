@@ -44,7 +44,15 @@ class BagDAO extends DAO
         return $bag;
     }
     
-    
+    public function find($user, $id) {
+        $sql = "select * from s_bag where bag_user=? and bag_prod=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($user, $id));
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No prod matching id " . $id);
+    }
 
 
 
@@ -67,7 +75,37 @@ class BagDAO extends DAO
     }
     
     public function delete($user,$prod) {
-        // Delete the product
-        $this->getDb()->delete('s_bag', array('user_id' => $user,'prod_id' => $prod));
+        $r=$this->find($user,$prod);
+        if($r->getProdNumber()==1){
+            // add the product
+            $this->getDb()->delete('s_bag', array('bag_user' => $user,'bag_prod' => $prod));
+        }
+        else{
+            $bagData = array(
+                'bag_user' => $r->getUser()->getId(),
+                'bag_prod' => $r->getProd()->getId(),
+                'bag_prod_nbr' => $r->getProdNumber()-1
+            );
+            $this->getDb()->update('s_bag', $bagData, array('bag_user' => $r->getUser()->getId(), 'bag_prod' => $r->getProd()->getId()));
+        }
+    }
+    
+    public function add($user,$prod) {
+        $sql = "select * from s_bag where bag_user=? and bag_prod=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($user, $prod));
+
+        if ($row){
+            $r=$this->buildDomainObject($row);
+            $bagData = array(
+                'bag_user' => $r->getUser()->getId(),
+                'bag_prod' => $r->getProd()->getId(),
+                'bag_prod_nbr' => $r->getProdNumber()+1
+            );
+            $this->getDb()->update('s_bag', $bagData, array('bag_user' => $r->getUser()->getId(), 'bag_prod' => $r->getProd()->getId()));
+        }
+        else{
+            // add the product
+            $this->getDb()->insert('s_bag', array('bag_user' => $user,'bag_prod' => $prod, 'bag_prod_nbr' => 1));
+        }
     }
 }

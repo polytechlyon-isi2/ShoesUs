@@ -5,7 +5,39 @@
 
 
 {% block content %}
-{% for bag in bags %}
-    <h2><a class="productName" href="{{ path('product', { 'id': bag.prod.id }) }}">{{ bag.prod.name }}</a></h2>
-{% endfor %}
+<div class="container">
+    <h2>Votre panier</h2>          
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set finalprice= 0 %}
+            {% for bag in bags %}
+            {% set price= bag.prod.price*bag.prodnumber %}
+            {% set finalprice=finalprice+price %}
+                <tr>
+                    <td><a class="productName" href="{{ path('product', { 'id': bag.prod.id }) }}">{{ bag.prod.name }}</a></td>
+                    <td>{{ bag.prodnumber }}</td>
+                    <td><b>{{ price }}€</b></td>
+                    <td>
+                        <a href="{{ path('bag_product_delete', { 'id': bag.prod.id }) }}" class="btn btn-info btn-xs" title="remove"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a href="{{ path('bag_product_add', { 'id': bag.prod.id }) }}" class="btn btn-info btn-xs" title="add"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td>TOTAL</td>
+                    <td></td>
+                    <td><b>{{ finalprice }}€</b></td>
+                    <td></td>
+                </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -56,6 +56,22 @@ $app->get('/bag', function () use ($app) {
     return $app['twig']->render('bag.html.twig', array('bags' => $bags));
 })->bind('bag');
 
+// Remove a product in the bag
+$app->get('/bag/user/{id}/delete', function($id, Request $request) use ($app) {
+    // Delete the prod
+    $app['dao.bag']->delete($app['user']->getId(), $id);
+    // Redirect to admin home page
+    return $app->redirect($app['url_generator']->generate('bag'));
+})->bind('bag_product_delete');
+
+// Add a new category
+$app->match('/bag/prod/{id}/add', function($id, Request $request) use ($app) {
+    $app['dao.bag']->add($app['user']->getId(), $id);
+    // Redirect to bag home page
+    return $app->redirect($app['url_generator']->generate('bag'));
+})->bind('bag_product_add');
+
+
 
 
 // Add a new product

@@ -9,7 +9,7 @@
     <p>{{ product.price }}</p>
     <h3>Ajouter au panier</h3>
     {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-        Soon!
+         <a href="{{ path('bag_product_add', { 'id':product.id }) }}" class="btn btn-info btn-xs" title="add">Ajouter au panier <span class="glyphicon glyphicon-plus"></span></a>
     {% else %}
         <a href="{{ path('login') }} ">Se connecter</a> pour ajouter au panier.
     {% endif %}
