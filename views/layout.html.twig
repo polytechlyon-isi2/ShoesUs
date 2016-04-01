@@ -21,6 +21,16 @@
                     <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ app.request.basepath }}/images/title.png"></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catégories<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for category in categories %}
+                                    <li><a class="categoryName" href="{{ path('category', { 'id': category.id }) }}">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>  
                     <ul class="nav navbar-nav navbar-right">
                         {% if app.user and is_granted('ROLE_USER') %}
                         <li class="{% if adminMenu is defined %}active{% endif %}"><a href="{{ path('bag') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a></li>

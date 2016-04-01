@@ -7,6 +7,7 @@ use ShoesUs\Domain\Bag;
 use ShoesUs\Form\Type\CategoryType;
 use ShoesUs\Form\Type\ProductType;
 use ShoesUs\Form\Type\UserType;
+
 // Home page
 $app->get('/', function () use ($app) {
     $categories = $app['dao.category']->findAll();
