@@ -3,29 +3,100 @@
 {% block title %}User authentication{% endblock %}
 
 {% block content %}
-<h2 class="text-center">{{ block('title') }}</h2>
 {% if error %}
 <div class="alert alert-danger">
-    <strong>Login failed!</strong> {{ error }}
+    <strong>Erreur d'identification !</strong> {{ error }}
 </div>
 {% endif %}
-<div class="well">
-    <form class="form-signin form-horizontal" role="form" action="{{ path('login_check') }}" method="post">
-        <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-            <input type="text" name="_username" value="{{ last_username }}" class="form-control" placeholder="Enter your username" required autofocus>
+ <div id="content"><h2 class="text-center">Identification</h2>
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#connection" data-toggle="tab">Connexion</a></li>
+                    <li><a href="#inscription" data-toggle="tab">Inscription</a></li>
+                </ul>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                <input type="password" name="_password" class="form-control" placeholder="Enter your password" required>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="connection">
+                <form class="form-signin form-horizontal" role="form" action="/login_check" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                            <input type="text" name="_username" value="" class="form-control" placeholder="Entrez votre adresse de courriel" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                            <input type="password" name="_password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+                            <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="inscription">
+                <form name="user" method="post" action="" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_lastName">Nom</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="user_lastName" name="user[lastName]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_firstName">Prénom</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="user_firstName" name="user[firstName]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_address">Adresse</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="user_address" name="user[address]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_zipCode">Code postal</label>
+                    <div class="col-sm-2">
+                        <input type="text" id="user_zipCode" name="user[zipCode]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_city">Ville</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="user_city" name="user[city]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_mail">Courriel</label>
+                    <div class="col-sm-3">
+                        <input type="email" id="user_mail" name="user[mail]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_password_first">Mot de passe</label>
+                    <div class="col-sm-3">
+                        <input type="password" id="user_password_first" name="user[password][first]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 control-label required" for="user_password_second">Mot de passe (confirmation)                         </label>
+                    <div class="col-sm-3">
+                        <input type="password" id="user_password_second" name="user[password][second]" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-3">
+                        <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-save"></span> S'inscrire</button>
+                    </div>
+                </div>
+                <input type="hidden" id="user__token" name="user[_token]" value="38813655cb41ffa7cd8fe8bb759e679504c4cfe0" />               </form>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Login</button>
-            </div>
-        </div>
-    </form>
+     </div>
+    </div>
 </div>
 {% endblock %}
